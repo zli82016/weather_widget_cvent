@@ -40,7 +40,7 @@ body {
   border-top-right-radius: 10px;
 }
 
-img:before {
+img::before {
   content: " ";
 }
 
@@ -55,7 +55,7 @@ img:before {
   position: relative;
   width: 96%;
   height: 30%;
-  left: 2%;
+  left: 4%;
   text-align: center;
   font-size: 0.7em;
 }
