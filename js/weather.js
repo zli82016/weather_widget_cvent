@@ -4,6 +4,7 @@
 * Send the request to API to get the weather data.
 */
 function getDailyWeather(){
+	console.log("send request");
 	var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22fairfax%2C%20va%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithke';
 	
 	var xhr = new XMLHttpRequest();
@@ -19,8 +20,9 @@ function getDailyWeather(){
             	loc: data.location.city + ', ' + data.location.region,
             	temp: data.item.condition.temp,
             	iconCode: data.item.condition.code,
-            	des: data.item.condition.text
-
+            	des: data.item.condition.text,
+            	sunrise: data.astronomy.sunrise,
+            	sunset: data.astronomy.sunset
             };
 
             // Weather forecast for the next five days.
@@ -44,12 +46,18 @@ function updateCurrentData(weatherData){
 	var temp = document.getElementById('tempId');
 	var icon = document.getElementById('weatherIconId');
 	var des = document.getElementById('desId');
+	var sunInfo = document.getElementById('sunInfoId');
+	var sunrise = document.getElementById('sunriseId');
+	var sunset = document.getElementById('sunsetId');
 
 	pos.innerHTML = weatherData.loc;
 	temp.innerHTML = weatherData.temp + '&deg;';
 	icon.src = 'http://l.yimg.com/a/i/us/we/52/' + weatherData.iconCode + '.gif';
 	des.innerHTML = weatherData.des;
 
+	sunInfo.className = sunInfo.className.replace('hidden', '').trim();
+	sunrise.innerHTML = weatherData.sunrise;
+	sunset.innerHTML = weatherData.sunset;
 }
 
 /*
@@ -79,6 +87,7 @@ function updateDailyData(weatherData){
 }
 
 window.onload = function(){
+	console.log("onload");
 	var interval = 1 * 60 * 60 * 1000; // 1 hour
 	getDailyWeather();
 	setInterval(getDailyWeather, interval);

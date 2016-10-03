@@ -34,16 +34,18 @@ body {
 }
 
 .currentWeatherInfo {
-  width: 100%;
+  width: 98%;
   height: 55%;
+  position: relative;
+  left: 2%
 }
 
 .climateBg {
   position: relative;
-  margin-left: 32%;
-  width: 68%;
+  width: 45%;
   height: 100%;
   border-top-right-radius: 10px;
+  float: left;
 }
 
 img::before {
@@ -55,6 +57,38 @@ img::before {
   max-width: 100%;
   height: auto;
   overflow: hidden;
+}
+
+.sunInfo {
+  position: relative;
+  width: 25%;
+  float: left;
+  top: 10%;
+  height: 90%;
+  text-transform: uppercase;
+}
+
+.sun {
+  position: relative;
+  left: 15%;
+  height: 28%;
+}
+
+.sunrise::before, .sunset::before {
+  bottom: 10%;
+  position: relative;
+}
+
+.sunrise::before { 
+  content: "\2191  ";
+}
+
+.sunset::before {
+  content: "\2193  ";
+}
+
+.sunrise, .sunset {
+  height: 28%;
 }
 
 .forecastInfo {
@@ -82,10 +116,13 @@ img::before {
 .temperature {
   position: relative;
   float: left;
-  left: 2%;
   top: 10%;
   width: 30%;
   font-size: 3.75em;
   font-weight: normal;
   color: rgb(0, 0, 0);
+}
+
+.hidden {
+  display: none;
 }
