@@ -9,19 +9,24 @@
 </head>
 <body class="body">
   <div class="container">
-    <div class="location" id="locationId"></div>  
-    <div class="currentWeatherInfo">  
-      <div class="temperature" id="tempId"></div> 
+
+    <div class="location" id="locationId"></div>
+
+    <div class="currentWeatherInfo">
+      <div class="temperature" id="tempId"></div>
+
       <div class="climateBg">
         <img class="weatherIcon" id="weatherIconId">
         <div id="desId"></div>
-      </div>
+      </div><!--<div class="climateBg">-->
+
       <div class="sunInfo hidden" id="sunInfoId">
         <div class="sun">SUN</div>
         <div class="sunrise" id="sunriseId"></div>
         <div class="sunset" id="sunsetId"></div>
-      </div>
-    </div>
+      </div><!--<div class="sunInfo">-->
+    </div><!--<div class="currentWeatherInfo">-->
+
     <div class="forecastInfo">
       <div class="dayInfo">
         <div id="day1"></div>
@@ -43,7 +48,10 @@
         <div id="day5"></div>
         <div id="tempDay5"></div>
       </div>
-    </div>
-  </div>
+    </div><!--<div class="forecastInfo">-->
+
+    <div class="loadingData" id="loadingDataId">Loading......</div>
+
+  </div><!--<div class="container">-->
 </body>
 </html>

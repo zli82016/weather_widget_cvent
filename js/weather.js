@@ -4,16 +4,21 @@
 * Send the request to API to get the weather data.
 */
 function getDailyWeather(){
-	console.log("send request");
-	var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22fairfax%2C%20va%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithke';
+	console.log("Function to send request");
+	var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22atlanta%2C%20ga%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithke';
 	
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
-		var weatherData = [], currentData = {};
+		var response, data, weatherData = [], currentData = {};
 
+		if(xhr.readyState == 4){
+			console.log('xhr.status ' + xhr.status);
+		}
 		if(xhr.readyState === 4 && xhr.status === 200){
-			var response = JSON.parse(xhr.responseText);
-            var data = response.query.results.channel;
+			console.log("Received response");
+
+			response = JSON.parse(xhr.responseText);
+            data = response.query.results.channel;
 
             // Today's weather data
             currentData = {
@@ -50,6 +55,12 @@ function updateCurrentData(weatherData){
 	var sunrise = document.getElementById('sunriseId');
 	var sunset = document.getElementById('sunsetId');
 
+	var loadingData = document.getElementById('loadingDataId');
+
+	if(!loadingData.className.includes('hidden')){
+		loadingData.className += ' hidden';
+	}
+
 	pos.innerHTML = weatherData.loc;
 	temp.innerHTML = weatherData.temp + '&deg;';
 	icon.src = 'http://l.yimg.com/a/i/us/we/52/' + weatherData.iconCode + '.gif';
@@ -65,22 +76,9 @@ function updateCurrentData(weatherData){
 */
 
 function updateDailyData(weatherData){
-	var nodes = {
-		day1: document.getElementById('day1'),
-		tempDay1: document.getElementById('tempDay1'),
-		day2: document.getElementById('day2'),
-		tempDay2: document.getElementById('tempDay2'),
-		day3: document.getElementById('day3'),
-		tempDay3: document.getElementById('tempDay3'),
-		day4: document.getElementById('day4'),
-		tempDay4: document.getElementById('tempDay4'),
-		day5: document.getElementById('day5'),
-		tempDay5: document.getElementById('tempDay5')
-	};
-
 	for(var i = 0; i < weatherData.length; i++){
-		nodes['day' + (i + 1)].innerHTML = weatherData[i].day;
-		nodes['tempDay' + (i + 1)].innerHTML = weatherData[i].low
+		document.getElementById('day' + (i + 1)).innerHTML = weatherData[i].day;
+		document.getElementById('tempDay' + (i + 1)).innerHTML = weatherData[i].low
 			+ '&deg; / '+ weatherData[i].high + '&deg;';
 	}
 
@@ -90,5 +88,6 @@ window.onload = function(){
 	console.log("onload");
 	var interval = 1 * 60 * 60 * 1000; // 1 hour
 	getDailyWeather();
+	// Repeat the request in 1 hour
 	setInterval(getDailyWeather, interval);
 }

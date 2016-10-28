@@ -21,7 +21,6 @@ body {
 
 .location {
   box-sizing: border-box;
-  z-index: 8;
   height: 20%;
   font-size: 1.2em;
   color: rgb(0, 0, 0);
@@ -42,14 +41,15 @@ body {
 
 .climateBg {
   position: relative;
-  width: 45%;
+  width: 37%;
   height: 100%;
   border-top-right-radius: 10px;
   float: left;
 }
 
-img::before {
-  content: " ";
+#desId {
+  position: relative;
+  left: 5%;
 }
 
 .weatherIcon {
@@ -61,8 +61,8 @@ img::before {
 
 .sunInfo {
   position: relative;
-  width: 25%;
-  float: left;
+  width: 28%;
+  float: right;
   top: 10%;
   height: 90%;
   text-transform: uppercase;
@@ -70,7 +70,7 @@ img::before {
 
 .sun {
   position: relative;
-  left: 15%;
+  left: 13%;
   height: 28%;
 }
 
@@ -117,12 +117,23 @@ img::before {
   position: relative;
   float: left;
   top: 10%;
-  width: 30%;
-  font-size: 3.75em;
+  max-width: 35%;
+  font-size: 3em;
   font-weight: normal;
   color: rgb(0, 0, 0);
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+}
+
+.loadingData {
+  bottom: 0;
+  height: 25px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center;
 }

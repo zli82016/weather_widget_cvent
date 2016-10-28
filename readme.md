@@ -3,4 +3,6 @@ This weather widget is to update current weather and forecast in the next five d
 API: yahoo weather API
 
 Test:
-Download the code and run on a server.
+Download the code and run on a browser/server.
+
+If the loading spinner does not go away for a  while, please reload the page. I am going to improve it soon.
