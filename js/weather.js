@@ -108,8 +108,8 @@ function updateDailyData(weatherData){
 
 window.onload = function(){
 	console.log("onload");
-	var interval = 1 * 60 * 60 * 1000; // 1 hour
+	var oneHour = 1 * 60 * 60 * 1000; // 1 hour
 	getDailyWeather();
 	// Repeat the request in 1 hour
-	setInterval(getDailyWeather, interval);
+	setInterval(getDailyWeather, oneHour);
 }
