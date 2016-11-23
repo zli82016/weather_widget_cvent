@@ -6,8 +6,6 @@ function getPromise(url){
 
 		xhr.onload = function(){
 			if(xhr.readyState === 4){
-                console.log('xhr.status ' + xhr.status);
-
 				if(xhr.status === 200){
 
 					resolve( JSON.parse(xhr.responseText).query.results.channel );
