@@ -1,5 +1,33 @@
 'use strict'
 
+function getPromise(url){
+	return new Promise(function(resolve, reject){
+		var xhr = new XMLHttpRequest();
+
+		xhr.onload = function(){
+			if(xhr.readyState === 4){
+                console.log('xhr.status ' + xhr.status);
+
+				if(xhr.status === 200){
+
+					resolve( JSON.parse(xhr.responseText).query.results.channel );
+				}
+				else{
+					reject(Error(xhr.statusText));
+				}
+			}
+
+		};
+
+		xhr.onerror = function(){
+			reject(Error("Network Error."));
+		}
+
+		xhr.open('GET', url, true);
+		xhr.send();		
+	});
+}
+
 /*
 * Send the request to API to get the weather data.
 */
@@ -7,18 +35,11 @@ function getDailyWeather(){
 	console.log("Function to send request");
 	var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22atlanta%2C%20ga%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithke';
 	
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		var response, data, weatherData = [], currentData = {};
-
-		if(xhr.readyState == 4){
-			console.log('xhr.status ' + xhr.status);
-		}
-		if(xhr.readyState === 4 && xhr.status === 200){
+	getPromise(url).then(
+		function(data){
 			console.log("Received response");
 
-			response = JSON.parse(xhr.responseText);
-            data = response.query.results.channel;
+			var weatherData = [], currentData = {};
 
             // Today's weather data
             currentData = {
@@ -35,12 +56,15 @@ function getDailyWeather(){
 
 			updateCurrentData(currentData);
             updateDailyData(weatherData);
+		}	
+
+	)
+	.catch(
+		function(error){
+			console.log(error);
+			getDailyWeather();
 		}
-
-	}
-
-	xhr.open('GET', url, true);
-	xhr.send();
+	);
 }
 
 /*
